@@ -44,44 +44,52 @@ public class ExceptionsVsFlagsBench {
     }
 
     @GenerateMicroBenchmark
-    public int exceptionChain() {
+    public int dynamic_chain() {
         try {
             return c01();
         } catch (LilException e) {
-            return source;
+            return e.getMetadata();
         }
     }
 
     @GenerateMicroBenchmark
-    public int exceptionRethrowChain() {
+    public int dynamic_rethrow() {
         try {
             return er01();
         } catch (LilException e) {
-            return source;
+            return e.getMetadata();
         }
     }
 
     @GenerateMicroBenchmark
-    public int exception() {
+    public int dynamic() {
         try {
             return e01();
         } catch (LilException e) {
-            return source;
+            return e.getMetadata();
         }
     }
 
-
     @GenerateMicroBenchmark
-    public int static_exception() {
+    public int static_() {
         try {
             return s01();
         } catch (LilException e) {
-            return source;
+            return e.getMetadata();
         }
     }
 
     @GenerateMicroBenchmark
-    public int flagsChain() {
+    public int static_rethrow() {
+        try {
+            return sr01();
+        } catch (LilException e) {
+            return e.getMetadata();
+        }
+    }
+
+    @GenerateMicroBenchmark
+    public int flags() {
         return m01();
     }
 
@@ -125,6 +133,28 @@ public class ExceptionsVsFlagsBench {
     private int er16() throws LilException {
         if (ThreadLocalRandom.current().nextInt(1_000_000) < PARTS) {
             throw new LilException(source);
+        }
+        return source;
+    }
+
+    private int sr01() throws LilException { try { return sr02() * 2; } catch (LilException e) { throw e; } }
+    private int sr02() throws LilException { try { return sr03() * 2; } catch (LilException e) { throw e; } }
+    private int sr03() throws LilException { try { return sr04() * 2; } catch (LilException e) { throw e; } }
+    private int sr04() throws LilException { try { return sr05() * 2; } catch (LilException e) { throw e; } }
+    private int sr05() throws LilException { try { return sr06() * 2; } catch (LilException e) { throw e; } }
+    private int sr06() throws LilException { try { return sr07() * 2; } catch (LilException e) { throw e; } }
+    private int sr07() throws LilException { try { return sr08() * 2; } catch (LilException e) { throw e; } }
+    private int sr08() throws LilException { try { return sr09() * 2; } catch (LilException e) { throw e; } }
+    private int sr09() throws LilException { try { return sr10() * 2; } catch (LilException e) { throw e; } }
+    private int sr10() throws LilException { try { return sr11() * 2; } catch (LilException e) { throw e; } }
+    private int sr11() throws LilException { try { return sr12() * 2; } catch (LilException e) { throw e; } }
+    private int sr12() throws LilException { try { return sr13() * 2; } catch (LilException e) { throw e; } }
+    private int sr13() throws LilException { try { return sr14() * 2; } catch (LilException e) { throw e; } }
+    private int sr14() throws LilException { try { return sr15() * 2; } catch (LilException e) { throw e; } }
+    private int sr15() throws LilException { try { return sr16() * 2; } catch (LilException e) { throw e; } }
+    private int sr16() throws LilException {
+        if (ThreadLocalRandom.current().nextInt(1_000_000) < PARTS) {
+            throw staticException;
         }
         return source;
     }
@@ -208,7 +238,9 @@ public class ExceptionsVsFlagsBench {
                         .warmupIterations(5)
                         .warmupTime(TimeValue.seconds(1))
                         .forks(1)
-                        .jvmArgs("-DexceptPPM=" + ppm)
+//                        .jvmArgs("-DexceptPPM=" + ppm)
+//                        .jvmArgs("-XX:-Inline -DexceptPPM=" + ppm)
+                        .jvmArgs("-XX:MaxInlineLevel=100 -DexceptPPM=" + ppm)
                         .outputFormat(OutputFormatType.Silent)
                         .build();
 
