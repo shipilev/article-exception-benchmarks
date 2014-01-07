@@ -238,9 +238,9 @@ public class ExceptionsVsFlagsBench {
                         .warmupIterations(5)
                         .warmupTime(TimeValue.seconds(1))
                         .forks(1)
-//                        .jvmArgs("-DexceptPPM=" + ppm)
-//                        .jvmArgs("-XX:-Inline -DexceptPPM=" + ppm)
-                        .jvmArgs("-XX:MaxInlineLevel=100 -DexceptPPM=" + ppm)
+                        .jvmArgs("-DexceptPPM=" + ppm)
+                        .jvmArgs("-XX:-Inline -DexceptPPM=" + ppm)
+//                        .jvmArgs("-XX:MaxInlineLevel=100 -DexceptPPM=" + ppm)
                         .outputFormat(OutputFormatType.Silent)
                         .build();
 
