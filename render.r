@@ -86,43 +86,43 @@ g <- function(ds) {
 
 # ---- RENDER ----
 
-svg(file="exceptions-baseline-full.svg", width = 12, height = 6)
+svg(file="exceptions-baseline-full.svg", width = 12, height = 6, family = "serif")
 
 g(readA("baseline.csv")) +
  scale_x_log10(limits = c(10^-6, 10^-0), breaks=c(10^-6, 10^-5, 10^-4, 10^-3, 10^-2, 10^-1, 10^0), labels = trans_format('log10', math_format(10^.x))) + 
  scale_y_log10(limits = c(10, 40000), breaks=c(1, 10, 100, 1000, 10000), labels = trans_format('log10', math_format(10^.x)))
 
-svg(file="exceptions-baseline-focused.svg", width = 12, height = 6)
+svg(file="exceptions-baseline-focused.svg", width = 12, height = 6, family = "serif")
 
 g(readA("baseline.csv")) +
  scale_x_log10(limits = c(10^-6, 10^-0), breaks=c(10^-6, 10^-5, 10^-4, 10^-3, 10^-2, 10^-1, 10^0), labels = trans_format('log10', math_format(10^.x))) + 
- scale_y_continuous(limits = c(15, 35))
+ scale_y_continuous(limits = c(15, 38))
 
 
 
-svg(file="exceptions-noinline-full.svg", width = 12, height = 6)
+svg(file="exceptions-noinline-full.svg", width = 12, height = 6, family = "serif")
 
 g(readA("noinline.csv")) +
  scale_x_log10(limits = c(10^-6, 10^-0), breaks=c(10^-6, 10^-5, 10^-4, 10^-3, 10^-2, 10^-1, 10^0), labels = trans_format('log10', math_format(10^.x))) + 
  scale_y_log10(limits = c(10, 40000), breaks=c(1, 10, 100, 1000, 10000), labels = trans_format('log10', math_format(10^.x)))
 
-svg(file="exceptions-noinline-focused.svg", width = 12, height = 6)
+svg(file="exceptions-noinline-focused.svg", width = 12, height = 6, family = "serif")
 
 g(readA("noinline.csv")) +
  scale_x_log10(limits = c(10^-6, 10^-0), breaks=c(10^-6, 10^-5, 10^-4, 10^-3, 10^-2, 10^-1, 10^0), labels = trans_format('log10', math_format(10^.x))) + 
  scale_y_continuous(limits = c(130, 200))
 
 
-svg(file="exceptions-maxinline-full.svg", width = 12, height = 6)
+svg(file="exceptions-maxinline-full.svg", width = 12, height = 6, family = "serif")
 
 g(readA("maxinline.csv")) +
  scale_x_log10(limits = c(10^-6, 10^-0), breaks=c(10^-6, 10^-5, 10^-4, 10^-3, 10^-2, 10^-1, 10^0), labels = trans_format('log10', math_format(10^.x))) + 
  scale_y_log10(limits = c(10, 40000), breaks=c(1, 10, 100, 1000, 10000), labels = trans_format('log10', math_format(10^.x)))
 
-svg(file="exceptions-maxinline-focused.svg", width = 12, height = 6)
+svg(file="exceptions-maxinline-focused.svg", width = 12, height = 6, family = "serif")
 
 g(readA("maxinline.csv")) +
  scale_x_log10(limits = c(10^-6, 10^-0), breaks=c(10^-6, 10^-5, 10^-4, 10^-3, 10^-2, 10^-1, 10^0), labels = trans_format('log10', math_format(10^.x))) + 
- scale_y_continuous(limits = c(15, 35))
+ scale_y_continuous(limits = c(15, 38))
 
 
