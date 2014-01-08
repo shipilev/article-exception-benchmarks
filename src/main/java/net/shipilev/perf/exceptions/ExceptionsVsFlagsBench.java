@@ -37,10 +37,12 @@ public class ExceptionsVsFlagsBench {
     int source = 42;
 
     LilException staticException;
+    LilStacklessException staticHeadlessException;
 
     @Setup(Level.Iteration)
     public void setup() {
         staticException = new LilException(source);
+        staticHeadlessException = new LilStacklessException(source);
     }
 
     @GenerateMicroBenchmark
@@ -65,6 +67,15 @@ public class ExceptionsVsFlagsBench {
     public int dynamic() {
         try {
             return e01();
+        } catch (LilException e) {
+            return e.getMetadata();
+        }
+    }
+
+    @GenerateMicroBenchmark
+    public int dynamic_stackless() {
+        try {
+            return es01();
         } catch (LilException e) {
             return e.getMetadata();
         }
@@ -181,6 +192,28 @@ public class ExceptionsVsFlagsBench {
         return source;
     }
 
+    private int es01() throws LilException { return es02() * 2; }
+    private int es02() throws LilException { return es03() * 2; }
+    private int es03() throws LilException { return es04() * 2; }
+    private int es04() throws LilException { return es05() * 2; }
+    private int es05() throws LilException { return es06() * 2; }
+    private int es06() throws LilException { return es07() * 2; }
+    private int es07() throws LilException { return es08() * 2; }
+    private int es08() throws LilException { return es09() * 2; }
+    private int es09() throws LilException { return es10() * 2; }
+    private int es10() throws LilException { return es11() * 2; }
+    private int es11() throws LilException { return es12() * 2; }
+    private int es12() throws LilException { return es13() * 2; }
+    private int es13() throws LilException { return es14() * 2; }
+    private int es14() throws LilException { return es15() * 2; }
+    private int es15() throws LilException { return es16() * 2; }
+    private int es16() throws LilException {
+        if (ThreadLocalRandom.current().nextInt(1_000_000) < PARTS) {
+            throw new LilStacklessException(source);
+        }
+        return source;
+    }
+
     private int s01() throws LilException { return s02() * 2; }
     private int s02() throws LilException { return s03() * 2; }
     private int s03() throws LilException { return s04() * 2; }
@@ -239,7 +272,7 @@ public class ExceptionsVsFlagsBench {
                         .warmupTime(TimeValue.seconds(1))
                         .forks(1)
                         .jvmArgs("-DexceptPPM=" + ppm)
-                        .jvmArgs("-XX:-Inline -DexceptPPM=" + ppm)
+//                        .jvmArgs("-XX:-Inline -DexceptPPM=" + ppm)
 //                        .jvmArgs("-XX:MaxInlineLevel=100 -DexceptPPM=" + ppm)
                         .outputFormat(OutputFormatType.Silent)
                         .build();

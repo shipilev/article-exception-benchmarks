@@ -5,6 +5,7 @@ library(scales);
 # .dynamic, 
 # .dynamic_chain,
 # .dynamic_rethrow, 
+# .dynamic_stackless
 # .flags, 
 # .static_, 
 # .static_rethrow
@@ -19,12 +20,14 @@ readA <- function(name) {
     dynamicChain_err = a$V5,
     dynamicRethrow = a$V6,
     dynamicRethrow_err = a$V7,
-    flags = a$V8,
-    flags_err = a$V9,
-    static = a$V10,
-    static_err = a$V11,
-    staticRethrow = a$V12,
-    staticRethrow_err = a$V13
+    dynamicStackless = a$V8,
+    dynamicStackless_err = a$V9,
+    flags = a$V10,
+    flags_err = a$V11,
+    static = a$V12,
+    static_err = a$V13,
+    staticRethrow = a$V14,
+    staticRethrow_err = a$V15
   );
 }
 
@@ -33,6 +36,7 @@ labels = c(
 	"dynamic",
 	"dynamicChain",
 	"dynamicRethrow",
+        "dynamicStackless",
 	"flags",
 	"static",
 	"staticRethrow"
@@ -42,6 +46,7 @@ colors = c(
 	"dynamic" = "#FFDD00",
 	"dynamicChain" = "#FF0000",
 	"dynamicRethrow" = "#0000FF",
+        "dynamicStackless" = "#AAAAFF",
 	"flags" = "#000000",
 	"static" = "#00FF00",
 	"staticRethrow" = "#00FFAA"
@@ -51,6 +56,7 @@ hLabels = c(
 	"dynamic" = "Dynamic",
 	"dynamicChain" = "Dynamic (chained)",
 	"dynamicRethrow" = "Dynamic (rethrow)",
+	"dynamicStackless" = "Dynamic (stackless)",
 	"flags" = "Flags",
 	"static" = "Static",
 	"staticRethrow" = "Static (rethrow)"
@@ -65,6 +71,8 @@ g <- function(ds) {
  layer(data = ds, mapping = aes(x = freq, y = dynamicChain, ymin = dynamicChain - dynamicChain_err, ymax = dynamicChain + dynamicChain_err, color="dynamicChain"), geom="errorbar") + 
  layer(data = ds, mapping = aes(x = freq, y = dynamicRethrow,  color="dynamicRethrow"), geom="line", geom_params=list(size=2)) +
  layer(data = ds, mapping = aes(x = freq, y = dynamicRethrow, ymin = dynamicRethrow - dynamicRethrow_err, ymax = dynamicRethrow + dynamicRethrow_err, color="dynamicRethrow"), geom="errorbar") + 
+ layer(data = ds, mapping = aes(x = freq, y = dynamicStackless,  color="dynamicStackless"), geom="line", geom_params=list(size=2)) +
+ layer(data = ds, mapping = aes(x = freq, y = dynamicStackless, ymin = dynamicStackless - dynamicStackless_err, ymax = dynamicStackless + dynamicStackless_err, color="dynamicStackless"), geom="errorbar") + 
  layer(data = ds, mapping = aes(x = freq, y = flags,  color="flags"), geom="line", geom_params=list(size=2)) +
  layer(data = ds, mapping = aes(x = freq, y = flags, ymin = flags - flags_err, ymax = flags + flags_err, color="flags"), geom="errorbar") + 
  layer(data = ds, mapping = aes(x = freq, y = static,  color="static"), geom="line", geom_params=list(size=2)) +
