@@ -11,8 +11,7 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
-import org.openjdk.jmh.logic.results.RunResult;
-import org.openjdk.jmh.output.OutputFormatType;
+import org.openjdk.jmh.infra.results.RunResult;
 import org.openjdk.jmh.runner.BenchmarkRecord;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -274,7 +273,7 @@ public class ExceptionsVsFlagsBench {
                         .jvmArgs("-DexceptPPM=" + ppm)
 //                        .jvmArgs("-XX:-Inline -DexceptPPM=" + ppm)
 //                        .jvmArgs("-XX:MaxInlineLevel=100 -DexceptPPM=" + ppm)
-                        .outputFormat(OutputFormatType.Silent)
+//                        .outputFormat(OutputFormatType.Silent)
                         .build();
 
                 SortedMap<BenchmarkRecord, RunResult> results = new Runner(opt).run();
